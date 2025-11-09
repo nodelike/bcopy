@@ -1,0 +1,30 @@
+# Example configuration file for bcopy
+# Place this file as .bcopy.yaml in your project root
+
+# Exclude test files by default
+exclude-tests: false
+
+# Respect .gitignore patterns
+no-gitignore: false
+
+# Custom exclusion patterns (regex)
+exclude:
+  - "vendor/"
+  - "node_modules/"
+  - "\\.pb\\.go$"
+
+# Allowed file extensions (overrides defaults)
+# Default: 50+ extensions including source code, config files, and special files
+# ext:
+#   - ".go"
+#   - ".py"
+#   - ".js"
+
+# Maximum directory traversal depth (0 = unlimited)
+max-depth: 0
+
+# Size thresholds
+threshold: 1.0        # Warning threshold in MB (prompts user)
+hard-max: 50.0        # Hard maximum in MB (aborts if exceeded)
+max-file-size: 10.0   # Skip individual files larger than this (MB)
+
