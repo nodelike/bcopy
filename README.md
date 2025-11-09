@@ -22,7 +22,8 @@ Perfect for sharing code context with LLMs, code reviews, or documentation.
 
 ```bash
 # Homebrew
-brew install nodelike/tap/bcopy
+brew tap nodelike/tap
+brew install bcopy
 
 # Go
 go install github.com/nodelike/bcopy/cmd/bcopy@latest
