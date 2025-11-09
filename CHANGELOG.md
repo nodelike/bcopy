@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-01-09
+
+### Added
+- Support for non-git directories with user confirmation prompt
+- Press Enter to continue when running in non-git directories
+
+### Changed
+- No longer requires git repository (optional with warning)
+- Only loads .gitignore patterns in actual git repositories
+- Updated README: cleaner usage section with grouped examples
+- Updated README: clarified that bcopy works in git repos and regular directories
+
+### Fixed
+- Git subdirectory detection now works properly with parent directory traversal
+
 ## [1.0.0] - 2025-01-09
 
 ### Initial Release

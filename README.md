@@ -6,8 +6,8 @@ Perfect for sharing code context with LLMs, code reviews, or documentation.
 
 ## Features
 
-- Works in git repositories (including subfolders)
-- Respects .gitignore patterns (optional)
+- Works in git repos (including subfolders) and regular directories
+- Respects .gitignore patterns in git repos (optional)
 - Smart filtering for common artifacts and dependencies
 - Binary file detection (skips files with null bytes)
 - Symlink loop prevention for safe traversal
@@ -31,47 +31,29 @@ go install github.com/nodelike/bcopy/cmd/bcopy@latest
 ## Usage
 
 ```bash
-bcopy                     # Copy current directory to clipboard
-bcopy ./src               # Copy specific subfolder
-bcopy --exclude-tests     # Exclude test files
-bcopy --dry-run           # Print to stdout instead of clipboard
-bcopy -o output.md        # Write to file
-bcopy --threshold 5       # Set 5MB warning threshold
-bcopy --hard-max 100      # Set 100MB hard limit
-bcopy --max-file-size 20  # Skip files larger than 20MB
-bcopy --no-gitignore      # Ignore .gitignore patterns
+# Basic usage
+bcopy                           # Copy current dir to clipboard
+bcopy ./src                     # Copy specific folder
+bcopy --dry-run                 # Print to stdout
+bcopy -o output.md              # Write to file
+
+# Filtering
+bcopy --exclude-tests           # Skip test files
+bcopy --no-gitignore            # Ignore .gitignore
+bcopy --max-depth 3             # Max 3 levels deep (default: unlimited)
+bcopy --ext .go --ext .py       # Only Go and Python files
+
+# Size limits
+bcopy --threshold 5             # Warn at 5MB (default: 1MB)
+bcopy --hard-max 100            # Abort at 100MB (default: 50MB)
+bcopy --max-file-size 20        # Skip files >20MB (default: 10MB)
 ```
 
-### Output Format
-
-Clean markdown with syntax highlighting for 50+ languages. Each file is formatted as:
-```
-File: ./path/to/file.go
-
-​```go
-// file contents
-​```
-```
-
-### Flags
-
-| Flag | Description | Default |
-|------|-------------|---------|
-| `--no-gitignore` | Ignore .gitignore patterns | false |
-| `--exclude-tests` | Exclude test files | false |
-| `--exclude <pattern>` | Custom exclusion regex (repeatable) | - |
-| `--ext <ext>` | Override allowed extensions (repeatable) | 50+ defaults |
-| `--max-depth <n>` | Limit directory depth (0 = unlimited) | 0 |
-| `--threshold <n>` | Size warning threshold in MB | 1.0 |
-| `--hard-max <n>` | Hard maximum total size in MB (aborts) | 50.0 |
-| `--max-file-size <n>` | Maximum individual file size in MB | 10.0 |
-| `--dry-run` | Print to stdout instead of clipboard | false |
-| `-o, --output <file>` | Write to file instead of clipboard | - |
-| `--config <file>` | Config file path | .bcopy.yaml |
+**Output:** Clean markdown with syntax highlighting for 50+ languages
 
 ### Config File
 
-Create `.bcopy.yaml` in your project root:
+Create `.bcopy.yaml` in your project root (or any parent directory) for per-repo configuration:
 
 ```yaml
 exclude-tests: true
@@ -110,7 +92,7 @@ bcopy -o review.md           # Save for code review
 
 ## Requirements
 
-Git repository • Clipboard support (macOS, Linux, Windows)
+Clipboard support (macOS, Linux, Windows) • Works best in git repos but runs anywhere
 
 ## License
 

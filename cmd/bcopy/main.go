@@ -36,7 +36,7 @@ var rootCmd = &cobra.Command{
 	Short: "Bulk copy codebase files to clipboard",
 	Long: `bcopy is a tool for copying multiple files from your codebase to clipboard,
 with smart filtering and git repository support.`,
-	Version: "1.0.0",
+	Version: "1.0.1",
 	Args:    cobra.MaximumNArgs(1),
 	Run:     runBcopy,
 }
@@ -103,10 +103,20 @@ func runBcopy(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	if !analyzer.IsGitRepo(path) {
-		fmt.Fprintf(os.Stderr, "Error: %s is not in a git repository\n", path)
-		fmt.Fprintln(os.Stderr, "bcopy only works in git repositories")
-		os.Exit(1)
+	// Check if it's a git repo and prompt if not
+	isGitRepo := analyzer.IsGitRepo(path)
+	if !isGitRepo {
+		fmt.Fprintf(os.Stderr, "\033[33m⚠️  Warning: %s is not in a git repository\033[0m\n", path)
+		fmt.Fprintln(os.Stderr, "bcopy works best in git repos but can run anywhere.")
+		fmt.Fprint(os.Stderr, "\033[33mPress Enter to continue or Ctrl+C to cancel...\033[0m ")
+		
+		reader := bufio.NewReader(os.Stdin)
+		_, err := reader.ReadString('\n')
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "\nCanceled by user\n")
+			os.Exit(1)
+		}
+		fmt.Fprintln(os.Stderr, "")
 	}
 
 	if shouldWarn, warning := analyzer.ShouldWarnLargeDirectory(path); shouldWarn {
@@ -153,7 +163,7 @@ func runBcopy(cmd *cobra.Command, args []string) {
 
 	filter := analyzer.NewFilter(allowedExts, customExcludes, !noGitignore, excludeTests)
 
-	if !noGitignore {
+	if !noGitignore && isGitRepo {
 		repoRoot, err := analyzer.GetRepoRoot(path)
 		if err == nil {
 			filter.LoadGitignore(repoRoot)
