@@ -32,6 +32,7 @@ func NewFilter(allowedExts []string, customExcludes []string, respectGitignore b
 			".go", ".py", ".js", ".jsx", ".ts", ".tsx", ".vue", ".svelte", ".mjs", ".cjs",
 			".yaml", ".yml", ".json", ".toml", ".md", ".txt", ".sh", ".bash",
 			".c", ".cpp", ".h", ".hpp", ".rs", ".java", ".rb", ".php", ".swift", ".kt",
+			".tf", ".tfvars", ".hcl",
 		}
 		for _, ext := range defaultExts {
 			f.allowedExts[ext] = true
@@ -88,6 +89,10 @@ func NewFilter(allowedExts []string, customExcludes []string, respectGitignore b
 		`(^|/)\.npm($|/)`,
 		`(^|/)cypress($|/)`,
 		`(^|/)jest-cache($|/)`,
+		`(^|/)\.terraform($|/)`,
+		`\.tfstate$`,
+		`\.tfstate\.backup$`,
+		`\.terraform\.lock\.hcl$`,
 	}
 
 	testPatterns := []string{

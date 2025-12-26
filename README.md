@@ -78,7 +78,7 @@ ext:
 
 **Auto-excludes:** `node_modules`, `.git`, `dist`, `build`, `vendor`, lock files, binaries, images, generated files
 
-**Includes:** 50+ languages (Go, Python, JS/TS, Rust, Java, C/C++, Ruby, PHP, etc.) + config files (YAML, JSON, TOML, etc.)
+**Includes:** 50+ languages (Go, Python, JS/TS, Rust, Java, C/C++, Ruby, PHP, Terraform, etc.) + config files (YAML, JSON, TOML, HCL, etc.)
 
 **Safety:** Binary detection, size limits, symlink loop prevention
 

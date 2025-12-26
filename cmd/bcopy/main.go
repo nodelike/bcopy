@@ -36,7 +36,7 @@ var rootCmd = &cobra.Command{
 	Short: "Bulk copy codebase files to clipboard",
 	Long: `bcopy is a tool for copying multiple files from your codebase to clipboard,
 with smart filtering and git repository support.`,
-	Version: "1.0.1",
+	Version: "1.0.2",
 	Args:    cobra.MaximumNArgs(1),
 	Run:     runBcopy,
 }

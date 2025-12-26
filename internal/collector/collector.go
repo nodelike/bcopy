@@ -342,6 +342,7 @@ func getLanguage(filename string) string {
 		".groovy":     "groovy",
 		".gradle":     "gradle",
 		".tf":         "terraform",
+		".tfvars":     "terraform",
 		".hcl":        "hcl",
 	}
 
